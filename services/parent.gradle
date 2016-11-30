@@ -1,0 +1,1 @@
+apply from: file("${project.rootProject.projectDir}/gradle/swagger.gradle")

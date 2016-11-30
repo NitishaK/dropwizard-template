@@ -1,0 +1,21 @@
+{
+  "apiVersion" : "1",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/",
+  "resourcePath" : "/customers",
+  "apis" : [ {
+    "path" : "/customers/{customerId}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCustomerProfile",
+      "type" : "string",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "customerId",
+        "required" : true
+      } ],
+      "produces" : [ "application/json" ]
+    } ]
+  } ]
+}

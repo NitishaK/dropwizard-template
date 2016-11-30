@@ -1,0 +1,7 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    classpath 'com.github.townsfolk:gradle-release:1.2'
+}

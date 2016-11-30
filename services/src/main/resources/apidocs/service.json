@@ -1,0 +1,8 @@
+{
+  "swaggerVersion" : "1.2",
+  "apiVersion" : "1",
+  "basePath" : "/apidocs",
+  "apis" : [ {
+    "path" : "/v1_customers.{format}"
+  } ]
+}

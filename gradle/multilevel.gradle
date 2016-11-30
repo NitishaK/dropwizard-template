@@ -1,0 +1,22 @@
+def includeParentGradle = { p ->
+    def cur = p.projectDir as File
+    while (cur) {
+        def f = "$cur${File.separator}/parent.gradle" as File
+        if (f.exists()) {
+            apply from: f, to: p
+        }
+        cur = cur.parent as File
+    }
+}
+
+def setArchivesBaseName = { project ->
+    def relPath = project.rootProject.relativePath(project.projectDir).replace(File.separator, '.')
+    project.archivesBaseName = relPath
+}
+
+subprojects {
+    apply plugin: 'java'
+    includeParentGradle(it)
+    setArchivesBaseName(it)
+    task allDeps(type: DependencyReportTask) {}
+}

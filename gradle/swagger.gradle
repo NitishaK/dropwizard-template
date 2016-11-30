@@ -1,0 +1,40 @@
+configurations {
+    doclet
+}
+
+dependencies {
+
+    dependencies {
+        doclet([group: 'com.carma', name: 'swagger-doclet', version: '1.0.4.+'])
+        doclet([group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0'])
+    }
+}
+
+task generateRestApiDocs(type: Javadoc) {
+
+    String path = project.projectDir
+
+    def docsDir = "${project.projectDir}/src/main/resources/apidocs" as File
+
+    docsDir.mkdirs()
+
+    project.allprojects.each { project ->
+        source += project.sourceSets.main.allJava
+    }
+
+    destinationDir = docsDir
+    options.classpath = configurations.doclet.files.asType(List)
+    options.docletpath = configurations.doclet.files.asType(List)
+    options.doclet = "com.carma.swagger.doclet.ServiceDoclet"
+    options.docTitle = "test"
+    options.addStringOption("modelFieldsNamingConvention", "LOWER_UNDERSCORE_UNLESS_OVERRIDDEN")
+    options.addStringOption("apiVersion", "1")
+    options.addStringOption("docBasePath", "/apidocs")
+    options.addStringOption("apiBasePath", "/")
+    options.addBooleanOption("skipUiFiles", false)
+    options.addStringOption("stringTypePrefixes", "java.time")
+}
+
+subprojects {
+    compileJava.dependsOn(generateRestApiDocs)
+}

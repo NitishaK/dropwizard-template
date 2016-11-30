@@ -1,0 +1,25 @@
+apply plugin: 'idea'
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    buildDir = projectDir.path + '/target'
+    libsDirName = buildDir
+}
+
+buildscript {
+    apply from: file('gradle/buildscript.gradle'), to: buildscript
+}
+
+apply from: file("gradle/repositories.gradle")
+
+apply from: file('gradle/dependencies.gradle')
+
+apply from: file("gradle/coverage.gradle")
+
+apply from: file("gradle/multilevel.gradle")
+

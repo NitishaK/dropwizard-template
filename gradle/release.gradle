@@ -1,0 +1,30 @@
+apply plugin: 'release'
+
+release {
+	failOnSnapshotDependencies = false
+	tagPrefix = 'RELEASE'
+	git.requireBranch = null
+	failOnPublishNeeded = false
+}
+
+subprojects {
+	apply plugin: 'maven'
+
+	task sourceJar(type: Jar) {
+		classifier = 'sources'
+		from sourceSets.main.allSource
+	}
+
+	artifacts {
+		archives sourceJar
+	}
+
+	uploadArchives {
+		repositories.mavenDeployer {
+			repository(url: '')
+			snapshotRepository(url: '')
+		}
+	}
+}
+
+createReleaseTag.dependsOn subprojects.tasks.uploadArchives

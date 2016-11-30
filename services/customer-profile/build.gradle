@@ -1,0 +1,12 @@
+dependencies {
+
+    compile project(':clients:externalservice-client')
+
+    apply plugin:'application'
+
+    mainClassName = 'com.sample.customerprofile.App'
+
+    run {
+        args'server', 'configs/local/config.yaml'
+    }
+}

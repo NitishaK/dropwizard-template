@@ -1,0 +1,40 @@
+{
+  "apiVersion" : "1",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/",
+  "resourcePath" : "/v1/customers",
+  "apis" : [ {
+    "path" : "/v1/customers",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getAllCustomerProfile",
+      "type" : "array",
+      "items" : {
+        "$ref" : "Customer"
+      },
+      "produces" : [ "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "Customer" : {
+      "id" : "Customer",
+      "properties" : {
+        "create_date_time" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "customer_name" : {
+          "type" : "string"
+        },
+        "update_date_time" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':common')
+    compile 'com.netflix.hystrix:hystrix-core:' + hystrixVersion
+}

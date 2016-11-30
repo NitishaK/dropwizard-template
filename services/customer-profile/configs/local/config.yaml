@@ -1,0 +1,69 @@
+server:
+  applicationConnectors:
+  - type: http
+    port: 46000
+  adminConnectors:
+  - type: http
+    port: 46001
+
+#database:
+#  # the name of your JDBC driver
+#  driverClass: com.mysql.jdbc.Driver
+#
+#  # the username                      `
+#  user: root
+#
+#  # the password
+#  password:
+#
+#  # the JDBC URL
+#  url: jdbc:mysql://localhost/customer_profile
+#
+#  # the maximum amount of time to wait on an empty pool before throwing an exception
+#  maxWaitForConnection: 1s
+#
+#  # the SQL query to run when validating a connection's liveness
+#  validationQuery: "/* MyService Health Check */ SELECT 1"
+#
+#  # the minimum number of connections to keep open
+#  minSize: 8
+#
+#  # the maximum number of connections to keep open
+#  maxSize: 32
+#
+#  # whether or not idle connections should be validated
+#  checkConnectionWhileIdle: true
+#
+#  # how long a connection must be held before it can be validated
+#  validationInterval: 10s
+#
+#  # the maximum lifetime of an idle connection
+#  minIdleTime: 1 minute
+
+# Logging settings.
+logging:
+  appenders:
+  - type: file
+
+    threshold: INFO
+    logFormat: "%-5p [%d{ISO8601}] [%X{reqId} %X{txnId}] %c: %m\n%ex"
+
+    currentLogFilename: ./logs/app.log
+
+    archivedLogFilenamePattern: ./logs/app-%d.log.gz
+
+    archivedFileCount: 5
+
+    timeZone: IST
+
+  - type: console
+    logFormat: "%-5p [%d{ISO8601}] [%X{reqId} %X{txnId}] %c: %m\n%ex"
+
+    # Do not display log statements below this threshold to stdout.
+    threshold: ALL
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+externalServiceClientConfiguration:
+  url: "http://test.com"
