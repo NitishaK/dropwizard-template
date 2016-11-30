@@ -1,0 +1,14 @@
+rootProject.name = 'dropwizard-template'
+
+logger.lifecycle('===================================================================================')
+logger.lifecycle("Submodules:")
+fileTree('.') {
+    include '**/build.gradle'
+    exclude 'build.gradle'
+}.collect {
+    relativePath(it.parent).replace(File.separator, ':')
+}.each {
+    logger.lifecycle("  $it")
+    include(it)
+}
+logger.lifecycle('===================================================================================')

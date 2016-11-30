@@ -1,0 +1,10 @@
+allprojects {
+    group = 'com.dropwizard.template'
+    version = '1.0.0'
+}
+
+task createWrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
+
+apply from: file("gradle/common.gradle")
