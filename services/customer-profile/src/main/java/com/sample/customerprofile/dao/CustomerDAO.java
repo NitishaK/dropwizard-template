@@ -2,6 +2,8 @@ package com.sample.customerprofile.dao;
 
 import com.sample.common.utils.GenericDAO;
 import com.sample.customerprofile.model.Customer;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +19,11 @@ public class CustomerDAO extends GenericDAO<Customer, Long> {
         return super.findAll();
     }
     public Long create(Customer customer) {
+        Date d = customer.getCreateDateTime();
+        customer.setCreateDateTime(d);
         return super.insert(customer);
+    }
+    public void delete(Customer customer) {
+        super.delete(customer);
     }
 }

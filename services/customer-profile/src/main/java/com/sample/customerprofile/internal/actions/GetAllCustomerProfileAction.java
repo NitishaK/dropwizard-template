@@ -5,6 +5,7 @@ import com.sample.customerprofile.dao.CustomerDAO;
 import com.sample.customerprofile.model.Customer;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 
 @Slf4j
-public class GetAllCustomerProfileAction implements Action<Customer> {
+public class GetAllCustomerProfileAction implements Action<List<Customer>> {
 
     private final CustomerDAO customerDAO;
 
@@ -22,13 +23,13 @@ public class GetAllCustomerProfileAction implements Action<Customer> {
     }
 
     @Override
-    public Customer invoke() {
-        return null;
-    }
+    public List<Customer> invoke() {
 
-    @Override
-    public List<Customer> invokeAll() {
+        log.info("Inside GetAllCustomerProfileAction");
+
         List<Customer> customers = customerDAO.getAll();
+
         return customers;
     }
+
 }

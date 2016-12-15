@@ -6,12 +6,51 @@
   "apis" : [ {
     "path" : "/v1/customers",
     "operations" : [ {
+      "method" : "POST",
+      "nickname" : "addCustomerProfile",
+      "type" : "integer",
+      "parameters" : [ {
+        "type" : "Customer",
+        "paramType" : "body",
+        "name" : "customer",
+        "required" : true
+      } ],
+      "consumes" : [ "application/json" ],
+      "produces" : [ "application/json" ]
+    }, {
       "method" : "GET",
       "nickname" : "getAllCustomerProfile",
       "type" : "array",
       "items" : {
         "$ref" : "Customer"
       },
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/v1/customers/{id}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCustomerProfile",
+      "type" : "Customer",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "path",
+        "name" : "id",
+        "required" : true
+      } ],
+      "produces" : [ "application/json" ]
+    }, {
+      "method" : "DELETE",
+      "nickname" : "deleteCustomerProfile",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "path",
+        "name" : "id",
+        "required" : true
+      } ],
       "produces" : [ "application/json" ]
     } ]
   } ],

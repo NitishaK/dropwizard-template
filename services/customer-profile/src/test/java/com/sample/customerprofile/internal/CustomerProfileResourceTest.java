@@ -1,11 +1,11 @@
-/*
 package com.sample.customerprofile.internal;
 
 import com.sample.common.MockitoExt;
+import com.sample.customerprofile.internal.actions.AddCustomerProfileAction;
+import com.sample.customerprofile.internal.actions.DeleteCustomerProfileAction;
 import com.sample.customerprofile.internal.actions.GetAllCustomerProfileAction;
 import com.sample.customerprofile.internal.actions.GetCustomerProfileAction;
 import com.sample.customerprofile.model.Customer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -14,38 +14,41 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-import io.dropwizard.jackson.Jackson;
 import io.dropwizard.testing.junit.ResourceTestRule;
 
-*/
 /**
  * Created by nitisha.khandelwal on 06/05/16.
- *//*
-
+ */
 
 public class CustomerProfileResourceTest {
 
-    public static final String RESOURCE_LOCATION = "/v1" +
-            "/customers/";
-
-    private ObjectMapper objectMapper = Jackson.newObjectMapper();
+    public static final String RESOURCE_LOCATION = "/v1/customers/";
 
     @Mock
-    private static GetAllCustomerProfileAction getCustomerProfileAction = Mockito.mock(GetAllCustomerProfileAction.class);
+    private static GetCustomerProfileAction getCustomerProfileAction = Mockito.mock(GetCustomerProfileAction.class);
+    @Mock
+    private static GetAllCustomerProfileAction getAllCustomerProfileAction = Mockito.mock(GetAllCustomerProfileAction.class);
+    @Mock
+    private static AddCustomerProfileAction addCustomerProfileAction = Mockito.mock(AddCustomerProfileAction.class);
+    @Mock
+    private static DeleteCustomerProfileAction deleteCustomerProfileAction = Mockito.mock(DeleteCustomerProfileAction.class);
 
     @ClassRule
     public final static ResourceTestRule resources = ResourceTestRule.builder().addResource(
-            new CustomerProfileResource(MockitoExt.mockProvider(getCustomerProfileAction))).build();
-
+            new CustomerProfileResource(
+                    MockitoExt.mockProvider(getCustomerProfileAction),
+                    MockitoExt.mockProvider(getAllCustomerProfileAction),
+                    MockitoExt.mockProvider(addCustomerProfileAction),
+                    MockitoExt.mockProvider(deleteCustomerProfileAction)
+            )).build();
 
     @Before
     public void setUpResources() {
@@ -58,14 +61,12 @@ public class CustomerProfileResourceTest {
         Long customerId = 320L;
         String location = RESOURCE_LOCATION + customerId;
 
-        List<Customer> customers = new ArrayList<>(1);
-
         Customer customer = new Customer();
-        customer.setId(320L);
+        customer.setId(customerId);
         customer.setCustomerName("Happy Singh");
 
-        when(getCustomerProfileAction).thenReturn(getCustomerProfileAction);
-        when(getCustomerProfileAction.invokeAll()).thenReturn(customers);
+        when(getCustomerProfileAction.withCustomerId(customerId)).thenReturn(getCustomerProfileAction);
+        when(getCustomerProfileAction.invoke()).thenReturn(customer);
 
         Response response = resources.client().target(location).request(MediaType.APPLICATION_JSON_TYPE).get();
 
@@ -76,4 +77,3 @@ public class CustomerProfileResourceTest {
     }
 
 }
-*/

@@ -8,8 +8,6 @@ import com.sample.customerprofile.model.Customer;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-
 /**
  * Created by nitisha.khandelwal on 06/05/16.
  */
@@ -30,16 +28,11 @@ public class GetCustomerProfileAction implements Action<Customer> {
     @Override
     public Customer invoke() {
 
-//        log.info("Inside GetCustomerProfileAction, with customer id - {}", customerId);
+        log.info("Inside GetCustomerProfileAction, with customer id - {}", customerId);
 
         Customer customer = customerDAO.findById(customerId);
 
         return customer;
-    }
-
-    @Override
-    public List<Customer> invokeAll() {
-        return null;
     }
 
     public GetCustomerProfileAction withCustomerId(Long customerId) {

@@ -3,12 +3,12 @@ package com.sample.customerprofile;
 import com.sample.common.modules.CommonModule;
 import com.sample.common.modules.PersistenceModule;
 import com.sample.common.swagger.SwaggerBundle;
+import com.sample.common.utils.JPAInitializer;
 import com.sample.customerprofile.config.AppConfig;
 import com.sample.customerprofile.modules.CustomerProfileModule;
 import com.sample.externalserviceclient.config.ExternalServiceClientModule;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.google.inject.Stage;
-import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 public class App extends Application<AppConfig> {
 
     private GuiceBundle<AppConfig> guiceBundle;
-    private JpaPersistModule jpaModule;
 
     public static void main(String[] args) throws Exception {
         new App().run(args);
@@ -41,7 +40,7 @@ public class App extends Application<AppConfig> {
 
         GuiceBundle.Builder<AppConfig> guiceBundleBuilder = GuiceBundle.newBuilder();
 
-        jpaModule = new JpaPersistModule("dropwizard-template");
+        JpaPersistModule jpaModule = new JpaPersistModule("dropwizard-template");
 
         guiceBundle = guiceBundleBuilder
                 .setConfigClass(AppConfig.class)
@@ -61,8 +60,7 @@ public class App extends Application<AppConfig> {
     @Override
     public void run(AppConfig configuration, Environment environment) throws Exception {
 
-        PersistService persistService = guiceBundle.getInjector().getInstance(PersistService.class);
-        persistService.start();
+        guiceBundle.getInjector().getInstance(JPAInitializer.class);
 
         environment.getObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 
