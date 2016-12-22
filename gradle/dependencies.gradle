@@ -29,11 +29,13 @@ allprojects {
 
         compile 'org.hibernate:hibernate-entitymanager:' + hibernateVersion
 
-        compile 'org.hibernate:hibernate-c3p0:4.3.11.Final'
-
         compile 'org.hibernate:hibernate-core:' + hibernateVersion
 
         compile 'org.hibernate:hibernate-validator:' + hibernateVersion
+
+        compile 'org.hibernate:hibernate-envers:' + hibernateVersion
+
+        compile 'org.hibernate:hibernate-c3p0:4.3.11.Final'
 
         compile 'com.google.inject.extensions:guice-persist:' + guiceVersion
 

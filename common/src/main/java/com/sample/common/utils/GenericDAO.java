@@ -61,9 +61,9 @@ public abstract class GenericDAO<E extends AbstractEntity, P> implements IGeneri
     @SuppressWarnings("unchecked")
     @Override
     public List<E> findAll() {
-//        return this.entityManagerProvider.get().createNamedQuery(getEntityClass().getSimpleName() + ".GetAll").getResultList();
-        return this.entityManagerProvider.get().createQuery("select x from " + getEntityClass().getSimpleName() + " x")
-                .getResultList();
+        return this.entityManagerProvider.get().createNamedQuery(getEntityClass().getSimpleName() + ".GetAll").getResultList();
+//        return this.entityManagerProvider.get().createQuery("select x from " + getEntityClass().getSimpleName() + " x")
+//                .getResultList();
 
     }
 
